@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>Insert title here</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="login.css">
+      
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   </head>
+   <header class="header"  style="  background-color: white;">
+ 
+<nav class="navigation">
+  <div id="menuToggle">
+  
+    <input type="checkbox" />
+    
+    <span></span>
+    <span></span>
+    <span></span>
+    
+	    <ul id="menu">
+	      <a href="/"><li>Home</li></a>
+	      <a href="/productpage?linkValue=softtoys"><li>Soft toys</li></a>
+	      <a href="/productpage?linkValue=handicraft"><li>Handicraft</li></a>
+	      <a href="/productpage?linkValue=homeFurnishing"><li>Home Furnishing</li></a>
+	      <a href="/productpage?linkValue=decorativeItems" ><li>Decorative Items</li></a>
+	     
+	      <li><a href="/aboutus" class="hamnav" >About Us</a></li>
+      	  <li><a href="mailto:workwebsite2000@gmail.com" class="hamnav">Contact</a></li>
+   		
+   		</ul>
+  </div>
+</nav>
+   
+   
+  <img class="logo" src="images/logo.jpeg" onclick='refreshPage()' alt="Lomaa">
+      
+      <ul class="main-nav">
+      	<a href="/aboutus" class="hover-underline-animation">About Us</a>
+      	<a href="mailto:workwebsite2000@gmail.com" class="hover-underline-animation">Contact</a>
+   		<a href="#"  onclick='openForm()' id="myElement" class="hover-underline-animation" ></a>
+        
+         
+         
+         <div class="dropdown">
+         	<div class="dropbtn" id="name" style="display: none;" ></div>
+            <br><div class="dropdown-content">
+             <center>
+                  <!--          <a href="/cart">Orders</a>  --> 
+                  <br><a href="/updateProfile">Profile</a><br><br>
+                  <a href="/logout"  id="logout" onclick='clearLocalStorage()' style="display: none; color: red" >Logout</a>
+              <br><br>
+               </center>
+            </div>	
+		 </div>
+		 <a href="/cart" class="fa" style="font-size:25px">&#xf07a;</a>
+      </ul>
+      
+   </header>
+   
+<body>
+<div class="accountcontainer">
+	<div class="pagetitle">Your Account, <span th:text="${name}"/></span></div></br>
+	<div th:each="data: ${data}">
+	<form class="accform" id="myForm" action="/updateProfile" >
+
+	  Password &nbsp;&nbsp;<input class="inputfield" type="text" id="password" name="password" th:value="${data.password}" readonly>&nbsp;&nbsp;
+	  <button type="button" onclick="toggleEditable('password')">Edit</button>
+	  <br><br>
+	
+	  Name &nbsp;&nbsp; <input class="inputfield" type="text" id="fullname" name="fullname" th:value="${data.fullname}" readonly>&nbsp;&nbsp;
+	    <button type="button" onclick="toggleEditable('fullname')">Edit</button>
+	  <br><br>
+	  
+	  Address  &nbsp;&nbsp; <input type="text" class="inputfield" id="address" name="address" th:value="${data.address}" readonly>&nbsp;&nbsp;
+	    <button type="button" onclick="toggleEditable('address')">Edit</button>
+	  <br><br>
+	  
+	  Phonenumber &nbsp;&nbsp; <input type="text" class="inputfield" id="phonenumber" name="phonenumber" th:value="${data.phonenumber}" readonly>&nbsp;&nbsp;
+	    <button type="button" onclick="toggleEditable('phonenumber')">Edit</button>
+	  <br><br>
+	  
+	  <input class="btn1" type="submit" value= "Save Changes">&nbsp;&nbsp;</button>
+	</form>
+	</div>
+
+	<div th:if="${message}" class="alert alert-success">
+	    <p th:text="${message}"></p>
+	</div>
+</div>
+
+<script th:inline="javascript">
+        function toggleEditable(fieldId) {
+            var field = document.getElementById(fieldId);
+            var editButton = field.nextElementSibling;
+            if (field.readOnly) {
+                field.readOnly = false;
+                editButton.textContent = "Cancel";
+                field.style.borderColor = "#73AD21";
+            } else {
+                field.readOnly = true;
+                editButton.textContent = "Edit";
+                field.style.borderColor = "black";
+            }
+        }
+    
+    
+        function refreshPage() {
+      	  window.location.href = "http://localhost:8080/";
+      	  
+      	}
+        
+ function clearLocalStorage() {
+       	  localStorage.clear();
+       	}
+       	
+       	
+      var name = [[${name}]];
+      if(name=="null"){
+      	var link = document.getElementById("myElement");
+      	link.innerHTML = "Login";
+      	
+      }
+
+      else {
+        	console.log(name); 
+        	var link = document.getElementById("name");
+        	link.innerHTML = name;
+      	document.getElementById("myElement").style.display = "none";
+      	document.querySelector(".dropbtn").style.display = "block";
+      	document.getElementById("name").style.display = "inline";
+      	document.getElementById("name").style.fontWeight = "bold";
+      	document.getElementById("name").style.textTransform = "capitalize";
+      	document.getElementById("logout").style.display = "inline";
+
+      } 
+    
+    
+    
+    
+    
+    
+    
+    </script>
+
+
+</body>
+<!--footer-->
+<div class="footer" style="background-color: black;">
+   <div class="footer_items">
+   <div class="footer__nav">
+       <div class="footer__item">
+         <h2 class="nav__title" style="margin-left:0px;">Categories <br></h2>
+   
+         <ul class="nav__ul">
+           <li>
+             <a href="/productpage?linkValue=softtoys">Soft Toys</a>
+           </li>
+   
+           <li>
+            <a href="/productpage?linkValue=homeFurnishing">Home Furnishing</a>
+           </li>
+               
+           <li>
+             <a href="/productpage?linkValue=decorativeItems" >Decorative Items</a>
+           </li>
+         </ul>
+       </div>
+       
+     </div>
+   
+   <hr style="border: 1px solid #ACABAB; height:80px; margin: auto;" />
+     <div class="footer__addr">
+       <h2 style=" margin-left:23px;"class="nav__title">Contact</h2>
+       <address>
+         &#128241; 011-987-234-234<br>
+         &#127757; 5534 Somewhere In. The World 22193-10212 <br>
+    
+         <a class="footer__btn" href="mailto:workwebsite2000@gmail.com">Email Us</a>
+       </address>
+     </div>
+     
+   <hr style="border: 1px solid #ACABAB; height:80px; margin: auto;" />
+     <div class="footer_payment"> 
+         <h2 class="nav__title" style="margin-left:20px;">Payment methods</h2>
+         <br>
+         <img class="footer_img" src="images/visa.png"  alt="visa">
+         <img class="footer_img" src="images/mastercard.jpg"  alt="visa">
+      </div>  
+   
+   </div>
+   <hr style="border: 1px solid #7B7B7B; margin: auto;" />
+   <div class="legal">
+       <p>Developer: Mahima Bora</p>
+       
+       <div class="legal__links">
+         <span>Made with <span class="heart">♥</span> remotely from Anywhere</span>
+       </div>
+     </div>
+   </div>
+   
+   
+   
+   </html>   

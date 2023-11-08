@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>Lomaa</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="login.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   </head>
+   
+   <header class="header">
+   
+      <nav class="navigation">
+         <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="menu">
+               <a href="/">
+                  <li>Home</li>
+               </a>
+               <a href="/productpage?linkValue=softtoys">
+                  <li>Soft toys</li>
+               </a>
+               <a href="/productpage?linkValue=homeFurnishing">
+                  <li>Home Furnishing</li>
+               </a>
+               <a href="/productpage?linkValue=decorativeItems" >
+                  <li>Decorative Items</li>
+               </a>
+               <li><a href="/aboutus" class="hamnav" >About Us</a></li>
+               <li><a href="mailto:workwebsite2000@gmail.com" class="hamnav">Contact</a></li>
+               <li><a href="/cart" class="hamnav">Cart</a></li>
+            
+            </ul>
+        
+      </nav>
+
+
+     
+  <img class="logo" src="images/logo.jpeg" onclick='refreshPage()' alt="Lomaa">
+      <ul class="main-nav">
+         <li><a href="/aboutus" class="hover-underline-animation">About Us</a></li>
+         <li><a href="mailto:workwebsite2000@gmail.com" class="hover-underline-animation">Contact</a></li>
+         <li><a href="#"  onclick='openForm()' id="myElement"  ></a></li>
+         <div class="dropdown">
+<!--             <div class="dropbtn" id="name" style="display: none;" ></div>
+ -->          
+             <div class="dropbtn" id="name" style="display: none;" ></div>
+   <br>
+            <div class="dropdown-content">
+               <center>
+                  <br><a href="/updateProfile">Profile</a><br><br>
+                  <a href="/logout"  id="logout" onclick='clearLocalStorage()' style="display: none; color: red" >Logout</a>
+              <br><br>
+               </center>
+            </div>
+         </div>
+        <div><a href="/cart" class="fa" style="font-size:25px">&#xf07a;</a></div> 
+      </ul>
+   </header>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   <body >
+      <div class="slideshow-container">
+         <div class="mySlides fade">
+            <img class="slideimg" src="images/home@1.jpg" >
+            <div class="slidetext animate slide">Decorative Items</div>
+         </div>
+         <div class="mySlides fade">
+            <img class="slideimg" src="images/home@2.jpg">
+            <div class="slidetext animate slide">Soft toys</div>
+         </div>
+         <div class="mySlides fade">
+            <img class="slideimg" src="images/home@1.jpg">
+            <div class="slidetext animate slide">Home Furnishing</div>
+         </div>
+      </div>
+      <div style="text-align:center">
+         <span class="dot"></span> 
+         <span class="dot"></span> 
+         <span class="dot"></span> 
+      </div>
+      
+      
+      <div class="card-container">
+         <div class="card-element animate pop">
+            <img src="/images/img4.jpg" alt="Image" class="card-img">
+            <div class="card-content">
+               <h3 class="card-title">SOFT TOY</h3>
+               <p class="card-text">Our soft toys are the perfect addition to any home, providing comfort and joy to all who snuggle up with them. Crafted from premium materials and designed with love, our cuddly creatures are sure to bring a smile to anyone's face, making them the perfect choice for any occasion.</p>
+               <div class="btns"> 
+                  <a class="cardlink" href="/productpage?linkValue=softtoys">Let's SHOP</a>
+               </div>
+            </div>
+         </div>
+         <div class="card-element animate pop">
+            <img src="/images/img2.jpg" alt="Image" class="card-img">
+            <div class="card-content">
+               <h3 class="card-title">HOME FURNISHING</h3>
+               <p class="card-text">Elevate your living space with our stylish and comfortable home decor collection. Discover a range of chic pieces that transform any room into a sanctuary of style. Experience the beauty of our home decor and create a space that reflects your unique personality and taste.</p>
+               <div class="btns"> 
+                  <a class="cardlink" href="/productpage?linkValue=homeFurnishing">Let's SHOP</a>
+               </div>
+            </div>
+         </div>
+         <div class="card-element animate pop">
+            <img src="/images/img3.jpeg" alt="Image" class="card-img">
+            <div class="card-content">
+               <h3 class="card-title">DECORATIVE ITEMS</h3>
+               <p class="card-text">They are specially made for young children out of textile fabrics and stuffed with a soft material which the young ones love to cuddle them, hug them, and play with them. Soft toys encourage the social and emotional growth of the children and help in developing sensory skills.</p>
+               <div class="btns"> 
+                  <a class="cardlink" href="/productpage?linkValue=decorativeItems" >Let's SHOP</a>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      
+      <div class="form-popup" id="myForm" style="display: none;">
+         <div class="card">
+            <div class="card2">
+               <form class="form"  method="post">
+                  <p id="heading" style="color:white;" >HEY THERE!!</p>
+                  <div class="field">
+                     <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg" class="input-icon">
+                        <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"></path>
+                     </svg>
+                     <input type="email" class="input-field" name="mailID" placeholder="mailID" required>
+                  </div>
+                  <div class="field">
+                     <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg" class="input-icon">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                     </svg>
+                     <input type="password" class="input-field" name= "password" placeholder="password" required>
+                  </div>
+                  <div class="btn">
+                     <input class="button1" type="submit" value= "Login"  formaction="/loginsubmit">&nbsp;&nbsp;</button>
+                     <input class="button2" type="submit" value="Sign Up" formaction="/signup"></button>
+                  </div>
+                  <input class="button3" type="button" value = "Forgot Password" onclick="forgotpasswordForm()"></button>
+                  <!-- <button class="button3" onclick="forgotpasswordForm()">Click me</button> -->
+                  <center style="color:white;" th:text="${message}"></center>
+                  <span class="close" onclick="closeForm()">&times;</span>
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class="form-popup" id="signupDetail" style="display: none;">
+         <div class="card">
+            <div class="card2">
+               <form class="form"  method="post">
+                  <p id="heading" style="color:blue;" >Just Few More Details</p>
+                  <div class="field">
+                     <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg" class="input-icon">
+                        <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"></path>
+                     </svg>
+                     <input type="text" class="input-field" name="fullname" placeholder="Full Name" required>
+                  </div>
+                  <div class="field">
+                     <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg" class="input-icon">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                     </svg>
+                     <input type="text" class="input-field" name= "address" placeholder="Address" required>
+                  </div>
+                  <div class="field">
+                     <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg" class="input-icon">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                     </svg>
+                     <input type="text" class="input-field" name= "phonenumber" placeholder="Phone Number" required>
+                  </div>
+                  <div class="btn">
+                     <input class="button2" type="submit" value="Here You Go" formaction="/signupsubmit"></button>
+                  </div>
+                  <center style="color:white;" th:text="${message}"></center>
+                  <span class="close" onclick="closeForm()">&times;</span>
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class="form-popup" id="forgotpwd" style="display: none;">
+         <div class="card">
+            <div class="card2">
+               <form class="form"  method="post">
+                  <p id="heading" style="color:blue;" >Please Enter Your Registered Mail-Id and FullName</p>
+                  <div class="field">
+                     <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg" class="input-icon">
+                        <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"></path>
+                     </svg>
+                     <input type="email" class="input-field" name="mailID" placeholder="Mail-Id" required>
+                  </div>
+                  <div class="field">
+                     <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg" class="input-icon">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                     </svg>
+                     <input type="text" class="input-field" name= "name" placeholder="name" required>
+                  </div>
+                  <div class="btn">
+                     <input class="button2" type="submit" value="Here You Go" formaction="/verifyuser"></button>
+                  </div>
+                  <center style="color:white;" th:text="${message}"></center>
+                  <span class="close" onclick="closeForm()">&times;</span>
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class="form-popup" id="otpForm" style="display: none;">
+         <div class="card">
+            <div class="card2">
+               <form class="form"  method="post">
+                  <p id="heading" style="color:blue;" >Please Enter the OTP</p>
+                  <div class="field">
+                     <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg" class="input-icon">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                     </svg>
+                     <input type="text" class="input-field" name= "otp" placeholder="Enter OTP" maxlength="6" required>
+                  </div>
+                  <div class="btn">
+                     <input class="button2" type="submit" value="VERIFY" formaction="/verifyOTP"></button>
+                  </div>
+                  <center style="color:white;" th:text="${message}"></center>
+                  <span class="close" onclick="closeForm()">&times;</span>
+               </form>
+            </div>
+         </div>
+      </div>
+      <div class="form-popup" id="newpassword" style="display: none;">
+         <div class="card">
+            <div class="card2">
+               <form class="form"  method="post">
+                  <p id="heading" style="color:blue;" >Just Few More Details</p>
+                  <div class="field">
+                     <svg viewBox="0 0 16 16" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg" class="input-icon">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                     </svg>
+                     <input type="password" class="input-field" name= "password" placeholder="Enter NEW Password"  required>
+                  </div>
+                  <div class="btn">
+                     <input class="button2" type="submit" value="VERIFY" formaction="/newpassword"></button>
+                  </div>
+                  <center style="color:white;" th:text="${message}"></center>
+                  <span class="close" onclick="closeForm()">&times;</span>
+               </form>
+            </div>
+         </div>
+      </div>
+      <!----- 2nd Slideshow ------>
+      <div class="slideshow-container2">
+         <a class="mySlides2 fade" href="/productpage?linkValue=softtoys">
+            <div class="slidetext2 ">
+               <div class="slidetext3">Soften your world with Lomaa Toy categories </br></div>
+               <div class="smalltext">Click here to Check it out</div>
+            </div>
+            <img class="slideimg2 fade" src="images/softtoy2.jpg">
+         </a>
+         <a class="mySlides2 fade" href="/productpage?linkValue=homeFurnishing">
+            <img class="slideimg2 fade" src="images/homef2.jpg">
+            <div class="slidetext2 ">
+               <div class="slidetext3">Make your house a home with Lomaa's cozy and beautiful products</br></div>
+               <div class="smalltext">Click here to Check it out</div>
+            </div>
+         </a>
+         <a class="mySlides2 fade" href="/productpage?linkValue=decorativeItems">
+            <div class="slidetext2">
+               <div class="slidetext3">Transform your space with Lomaa's unique furnishings and decorative items </br></div>
+               <div class="smalltext">Click here to Check it out</div>
+            </div>
+            <img class="slideimg2 fade" src="images/homedecor2.jpg">
+         </a>
+      </div>
+      <div style="display:none; text-align:center">
+         <span class="dot2"></span> 
+         <span class="dot2"></span> 
+         <span class="dot2"></span> 
+         <span class="dot2"></span> 
+      </div>
+      
+      <!-- Testimonial code -->
+      <div class="testititle text">What our Customer are saying..</div>
+      <div class="testicon">
+         <figure class="snip1533">
+            <figcaption>
+               <blockquote>
+                  <p>If you do the job badly enough, sometimes you don't get asked to do it again.</p>
+               </blockquote>
+               <h3>Wisteria Ravenclaw</h3>
+               <h4>Google Inc.</h4>
+            </figcaption>
+         </figure>
+         <figure class="snip1533">
+            <figcaption>
+               <blockquote>
+                  <p>I'm killing time while I wait for life to shower me with meaning and happiness.</p>
+               </blockquote>
+               <h3>Ursula Gurnmeister</h3>
+               <h4>Facebook</h4>
+            </figcaption>
+         </figure>
+         <figure class="snip1533">
+            <figcaption>
+               <blockquote>
+                  <p>The only skills I have the patience to learn are those that have no real application in life. </p>
+               </blockquote>
+               <h3>Ingredia Nutrisha</h3>
+               <h4>Twitter</h4>
+            </figcaption>
+         </figure>
+      </div>
+      <!-- backtotop  -->
+      <button onclick="location.href='/'" class="bttbtn">
+         <div class="text">
+            <span>Back</span>
+            <span>to</span>
+            <span>top</span>
+         </div>
+         <div class="clone">
+            <span>Back</span>
+            <span>to</span>
+            <span>top</span>
+         </div>
+         <svg width="20px" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+         </svg>
+      </button>         
+         
+         
+         
+         <script th:inline="javascript">
+      
+      
+            window.onload = function() {
+                var loginagain = [[${loginagain}]];
+                if (loginagain != null) {
+                    alert(loginagain);
+                }
+                else{
+                   
+                }
+            };
+
+            var name = [[${message}]];
+         if(name=="null"){
+         	var link = document.getElementById("myElement");
+         	const screenWidth  = window.screen.width;
+        	console.log(screenWidth);
+         	if(screenWidth>360){
+         		link.innerHTML = "Login";
+         	}
+         	else{
+         		link.innerHTML = "Login";
+         	}
+         }
+         else if (name == "Invalid Credentials" || name == "MailID Already Present" ) {
+             openForm();
+         } 
+         
+         else if(name == "verified")
+         {
+         	console.log(name);
+         	adddetailForm();
+         	
+         }
+         
+         else if(name == "otpsent")
+         {
+        	 
+          	otpForm();
+         	// newpassword()
+         }	
+         
+         else if(name == "Successfully VERIFIED")
+         {
+         	console.log(name);
+         	newpassword()
+         
+         	
+         }
+         
+         else if (name == "Failed to Send/ Incorrect Mail-Id" || name == "Wrong Details" || name == "OTP Expired" ) {
+         	forgotpasswordForm();
+         } 
+         
+         else if(name == "Incorrect OTP" )
+         {
+         	console.log(name);
+         	
+         	otpForm();
+         	
+         }
+         
+         else if(name == "Please try again")
+         {
+         		newpassword();
+         	
+         }
+         else {
+  	console.log(name); 
+  	var link = document.getElementById("name");
+  	link.innerHTML = name;
+	document.getElementById("myElement").style.display = "none";
+	document.querySelector(".dropbtn").style.display = "block";
+	document.getElementById("name").style.display = "inline";
+	document.getElementById("name").style.fontWeight = "bold";
+	document.getElementById("name").style.textTransform = "capitalize";
+	document.getElementById("logout").style.display = "inline";
+
+}
+         
+         
+         
+         function refreshPage() {
+        	  window.location.href = "http://localhost:8080/";
+        	  
+        	}
+
+
+   function clearLocalStorage() {
+       	  localStorage.clear();
+       	}
+       	
+function myFunction() {
+         	  alert("I am an alert box!");
+         	}
+         function openForm() {
+         	  document.getElementById("myForm").style.display = "block";
+         
+         	}
+         	
+         function adddetailForm(){
+         	
+         	document.getElementById("signupDetail").style.display = "block";
+         
+         }	
+         
+         function forgotpasswordForm(){
+         	
+         	document.getElementById("forgotpwd").style.display = "block";
+         
+         }	
+         
+         function otpForm(){
+         	
+         	document.getElementById("otpForm").style.display = "block";
+         
+         }
+         
+         function newpassword(){
+         	
+         	document.getElementById("newpassword").style.display = "block";
+         
+         }
+         	function closeForm() {
+         	  document.getElementById("myForm").style.display = "none";
+         	  window.location.href = "http://localhost:8080/";
+         	  
+         	}
+         	
+         
+         	
+
+         	
+         let slideIndex = 0;
+         showSlides();
+         
+         function showSlides() {
+           let i;
+           let slides = document.getElementsByClassName("mySlides");
+           let dots = document.getElementsByClassName("dot");
+           for (i = 0; i < slides.length; i++) {
+             slides[i].style.display = "none";  
+           }
+           slideIndex++;
+           if (slideIndex > slides.length) {slideIndex = 1}    
+           for (i = 0; i < dots.length; i++) {
+             dots[i].className = dots[i].className.replace(" active", "");
+           }
+           slides[slideIndex-1].style.display = "flex";  
+           dots[slideIndex-1].className += " active";
+           setTimeout(showSlides, 3000); // Change image every 2 seconds
+         }
+         
+         //2nd slideshow
+         let slideIndex2 = 0;
+         showSlides2();
+         
+         function showSlides2() {
+           let i;
+           let slides = document.getElementsByClassName("mySlides2");
+           let dots = document.getElementsByClassName("dot2");
+           for (i = 0; i < slides.length; i++) {
+             slides[i].style.display = "none";  
+           }
+           slideIndex2++;
+           if (slideIndex2 > slides.length) {slideIndex2 = 1}    
+           for (i = 0; i < dots.length; i++) {
+             dots[i].className = dots[i].className.replace(" active", "");
+           }
+           slides[slideIndex2-1].style.display = "flex";  
+           dots[slideIndex2-1].className += " active";
+           setTimeout(showSlides2, 5000);// Change image every 2 seconds
+         }
+         
+      </script>
+
+</body>
+
+<div class="footer" style="background-color:black;">
+   <div class="footer_items">
+   <div class="footer__nav">
+       <div class="footer__item">
+         <h2 class="nav__title" style="margin-left:0px;">Categories <br></h2>
+   
+         <ul class="nav__ul">
+           <li>
+             <a href="/productpage?linkValue=softtoys">Soft Toys</a>
+           </li>
+   
+           <li>
+            <a href="/productpage?linkValue=homeFurnishing">Home Furnishing</a>
+           </li>
+               
+           <li>
+             <a href="/productpage?linkValue=decorativeItems" >Decorative Items</a>
+           </li>
+         </ul>
+       </div>
+       
+     </div>
+   
+   <hr style="border: 1px solid #ACABAB; height:80px; margin: auto;" />
+     <div class="footer__addr">
+       <h2 style=" margin-left:23px;"class="nav__title">Contact</h2>
+       <address>
+         &#128241; 011-987-234-234<br>
+         &#127757; 5534 Somewhere In. The World 22193-10212 <br>
+    
+         <a class="footer__btn" href="mailto:workwebsite2000@gmail.com">Email Us</a>
+       </address>
+     </div>
+     
+   <hr style="border: 1px solid #ACABAB; height:80px; margin: auto;" />
+     <div class="footer_payment"> 
+         <h2 class="nav__title" style="margin-left:20px;">Payment methods</h2>
+         <br>
+         <img class="footer_img" src="images/visa.png"  alt="visa">
+         <img class="footer_img" src="images/mastercard.jpg"  alt="visa">
+      </div>  
+   
+   </div>
+   <hr style="border: 1px solid #7B7B7B; margin: auto;" />
+   <div class="legal">
+       <p>Developer: Mahima Bora</p>
+       
+       <div class="legal__links">
+         <span>Made with <span class="heart">♥</span> remotely from Anywhere</span>
+       </div>
+     </div>
+   </div>
+   
+   
+   
+   </html>         

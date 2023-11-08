@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>checkout</title>
+
+</head>
+<body>
+
+<center>
+ <img style= "height:20%; width:20%; margin-top:125px;"th:src="@{'/' + ${data}}" alt="Successfully CHECKED OUT!!"> 
+<div style="color:red;"class="cartstatus" th:text="${info}"></div>
+<br>
+<a href="/logout">Continue Shopping</a>
+</center>
+
+</body>
+
+     
+
+</html>

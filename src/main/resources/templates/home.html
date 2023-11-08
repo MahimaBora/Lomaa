@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.slideshow-container {
+  position: relative;
+  height: 25vh; /* set height to 25% of viewport height */
+  width: 100vw; /* set width to 100% of viewport width */
+  overflow: hidden; /* hide overflow */
+}
+
+.slideshow-container .slideshow {
+  position: absolute;
+  height: 100%;
+  width: 400%; /* set width to 4 times the container width for 4 slides */
+  display: flex;
+  animation: slide 20s infinite; /* set animation duration and loop */
+}
+
+.slideshow-container .slideshow .slide {
+  flex: 1;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* define the slide images */
+.slideshow-container .slideshow .slide:nth-child(1) {
+  background-image: url('/images/decorativeitems.jpg');
+}
+
+.slideshow-container .slideshow .slide:nth-child(2) {
+  background-image: url('/images/decorativeitems.jpg');
+}
+
+.slideshow-container .slideshow .slide:nth-child(3) {
+  background-image: url('/images/decorativeitems.jpg');
+}
+
+.slideshow-container .slideshow .slide:nth-child(4) {
+  background-image: url('/images/decorativeitems.jpg');
+}
+
+/* define the animation keyframe */
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(-100%);
+  }
+  55% {
+    transform: translateX(-100%);
+  }
+  60% {
+    transform: translateX(-200%);
+  }
+  85% {
+    transform: translateX(-200%);
+  }
+  90% {
+    transform: translateX(-300%);
+  }
+  100% {
+    transform: translateX(-300%);
+  }
+}
+
+</style>
+</head>
+
+<body>
+    <div class="slideshow-container">
+      <div class="slideshow">
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+      </div>
+    </div>
+  </body>
+</html> 

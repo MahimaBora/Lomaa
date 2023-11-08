@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="index.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<style>
+      .card-element {
+        text-align: center;
+        height:350px;
+      }
+    
+      
+</style>
+
+   <head>
+   <header class="header"  style="  background-color: white;">
+   
+   <nav class="navigation">
+  <div id="menuToggle">
+  
+    <input type="checkbox" />
+    
+    <span></span>
+    <span></span>
+    <span></span>
+    
+	    <ul id="menu">
+	      <a href="/"><li>Home</li></a>
+	      <a href="/productpage?linkValue=softtoys"><li>Soft toys</li></a>
+	      <a href="/productpage?linkValue=homeFurnishing"><li>Home Furnishing</li></a>
+	      <a href="/productpage?linkValue=decorativeItems" ><li>Decorative Items</li></a>
+	
+	    <li><a href="/aboutus" class="hamnav" >About Us</a></li>
+      	  <li><a href="mailto:workwebsite2000@gmail.com" class="hamnav">Contact</a></li>
+   		
+	
+	
+	    </ul>
+  </div>
+</nav>
+  <img class="logo" src="images/logo.jpeg" onclick='refreshPage()' alt="Lomaa">
+      
+      <ul class="main-nav">
+      	<a href="/aboutus" class="hover-underline-animation">About Us</a>
+      	<a href="mailto:workwebsite2000@gmail.com" class="hover-underline-animation">Contact</a>
+   		<a href="#"  onclick='openForm()' id="myElement" class="hover-underline-animation" ></a>
+        
+         
+         
+         <div class="dropdown">
+         	<div class="dropbtn" id="name" style="display: none;" ></div>
+            <br><div class="dropdown-content">
+            <center>
+                  <!--          <a href="/cart">Orders</a>  --> 
+                  <br><a href="/updateProfile">Profile</a><br><br>
+                  <a href="/logout"  id="logout" onclick='clearLocalStorage()' style="display: none; color: red" >Logout</a>
+              <br><br>
+               </center>
+            </div>	
+		 </div>
+		 <a href="/cart" class="fa" style="font-size:25px">&#xf07a;</a>
+      </ul>
+      
+   </header>
+   
+
+<body style="font-family: 'Times New Roman', Times, serif; height:100vh;">
+ 
+ <!-- <h1 th:text="${info}"></h1>-->
+ 
+ <div th:if="${info}">
+ <center><img style="height:30%; width:30%; margin:9em;"th:src="@{'/' + ${info}}" alt="PAGE UNDER CONSTRUCTION!!"> </center>
+ </div>
+<form id="myForm" action="/softtoy" method="post">
+<div class="icard-container">
+	<div class="icard-element" th:each="data: ${data}">
+			<textarea hidden id="txt" name="message" ></textarea>  
+			<button class="items" type="button" style="border:none;"onclick="preview(this)">
+			<img class="icard-img" th:src="@{'/images/' + ${data.image1}}" >
+			
+				<div id="icard-content">
+			    <!--Image code <span th:text="${data.item_code}"/><br>  -->
+			    <span class="icard-title" th:text="${data.item_name}"/><br>
+			   <div style="font-family: 'FontAwesome';">Price:  <span th:text="${data.item_price}"/></div>
+			    <!--Image <span th:text="${data.image}"/><br><br>  -->
+			   </div>
+			</button>
+	</div> 
+</div>
+</form>
+
+<div th:if="${data}">
+<!-- pagination code -->
+	<div class="pagination-container" >
+			  <input type="button" value="&lt;" class="pagination-button" id="prev-button"  aria-label="Previous page">
+			
+			  <div id="pagination-numbers"></div>
+			   
+			  <input type="button" value="&gt;" class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
+			    
+			  
+	</div>
+</div>
+  
+<script th:inline="javascript">
+
+function clearLocalStorage() {
+ 	  localStorage.clear();
+ 	}
+ 	
+ 	
+var name = [[${name}]];
+if(name=="null"){
+	var link = document.getElementById("myElement");
+	link.innerHTML = "Login";
+}
+
+else {
+  	console.log(name); 
+  	var link = document.getElementById("name");
+  	link.innerHTML = name;
+	document.getElementById("myElement").style.display = "none";
+	document.querySelector(".dropbtn").style.display = "block";
+	document.getElementById("name").style.display = "inline";
+	document.getElementById("name").style.fontWeight = "bold";
+	document.getElementById("name").style.textTransform = "capitalize";
+	document.getElementById("logout").style.display = "inline";
+
+}
+
+
+
+function preview(button) {
+	var img_src = button.querySelector('.icard-img').src;
+	console.log(img_src);
+
+	document.getElementById("txt").value=img_src;	
+	var u = document.getElementById("txt").value;
+	console.log(u);
+	
+	   var form = document.getElementById('myForm');
+	      form.submit();
+}
+
+
+//pagination code
+const paginationNumbers = document.getElementById("pagination-numbers");
+
+const listItems = document.getElementsByClassName("icard-element");
+let itemsarray = Array.from(listItems);
+console.log(itemsarray)
+const nextButton = document.getElementById("next-button");
+const prevButton = document.getElementById("prev-button");
+/*how many items on a single page*/
+const paginationLimit = 8;
+const pageCount = Math.ceil(listItems.length / paginationLimit);
+let currentPage;
+/*appends the number of pages acc to data*/
+const appendPageNumber = (index) => {
+	  const pageNumber = document.createElement("button");
+	  pageNumber.className = "pagination-number";
+	  pageNumber.innerHTML = index;
+	  pageNumber.setAttribute("page-index", index);
+	  pageNumber.setAttribute("aria-label", "Page " + index);
+	 
+	  paginationNumbers.appendChild(pageNumber);
+	};
+	 
+	const getPaginationNumbers = () => {
+	  for (let i = 1; i <= pageCount; i++) {
+	    appendPageNumber(i);
+	  }
+	};
+	
+/*Loads the first page and help set next and prev*/
+	window.addEventListener("load", () => {
+		  getPaginationNumbers();
+		  setCurrentPage(1);
+		 
+		  prevButton.addEventListener("click", () => {
+			    setCurrentPage(currentPage - 1);
+			    
+			  });
+			 
+			  nextButton.addEventListener("click", () => {
+			    setCurrentPage(currentPage + 1);
+			    
+			  });
+			 
+			  document.querySelectorAll(".pagination-number").forEach((button) => {
+			    const pageIndex = Number(button.getAttribute("page-index"));
+			 
+			    if (pageIndex) {
+			      button.addEventListener("click", () => {
+			        setCurrentPage(pageIndex);
+			      });
+			    }
+			  });
+			});
+	
+/*Actual code which hides*/
+	const setCurrentPage = (pageNum) => {
+		  currentPage = pageNum;
+		 console.log(pageNum);
+		  handleActivePageNumber();
+		  handlePageButtonsStatus();
+		   
+		  const prevRange = (pageNum - 1) * paginationLimit;
+		  const currRange = pageNum * paginationLimit;
+		 
+		  itemsarray.forEach((item, index) => {
+		    item.style="display:none;";
+		    console.log(item)
+		    if (index >= prevRange && index < currRange) {
+		    	item.style="display:";
+		    }
+		  });
+		};
+		
+/* to show active Button*/
+		const handleActivePageNumber = () => {
+			  document.querySelectorAll(".pagination-number").forEach((button) => {
+			    button.classList.remove("active");
+			    
+			    const pageIndex = Number(button.getAttribute("page-index"));
+			    if (pageIndex == currentPage) {
+			      button.classList.add("active");
+			    }
+			  });
+			};
+			
+/* to hide Prev and Next Button*/
+			const disableButton = (button) => {
+				  button.classList.add("disabled");
+				  button.setAttribute("disabled", true);
+				};
+				 
+				const enableButton = (button) => {
+				  button.classList.remove("disabled");
+				  button.removeAttribute("disabled");
+				};
+				 
+				const handlePageButtonsStatus = () => {
+				  if (currentPage === 1) {
+				    disableButton(prevButton);
+				  } else {
+				    enableButton(prevButton);
+				  }
+				 
+				  if (pageCount === currentPage) {
+				    disableButton(nextButton);
+				  } else {
+				    enableButton(nextButton);
+				  }
+				};
+
+				
+				function refreshPage() {
+		        	  window.location.href = "http://localhost:8080/";
+		        	  
+		        	}
+
+</script> 
+
+</body>
+
+<div class="footer" style="background-color: black;">
+   <div class="footer_items">
+   <div class="footer__nav">
+       <div class="footer__item">
+         <h2 class="nav__title" style="margin-left:0px;">Categories <br></h2>
+   
+         <ul class="nav__ul">
+           <li>
+             <a href="/productpage?linkValue=softtoys">Soft Toys</a>
+           </li>
+   
+           <li>
+            <a href="/productpage?linkValue=homeFurnishing">Home Furnishing</a>
+           </li>
+               
+           <li>
+             <a href="/productpage?linkValue=decorativeItems" >Decorative Items</a>
+           </li>
+         </ul>
+       </div>
+       
+     </div>
+   
+   <hr style="border: 1px solid #ACABAB; height:80px; margin: auto;" />
+     <div class="footer__addr">
+       <h2 style=" margin-left:23px;"class="nav__title">Contact</h2>
+       <address>
+         &#128241; 011-987-234-234<br>
+         &#127757; 5534 Somewhere In. The World 22193-10212 <br>
+    
+         <a class="footer__btn" href="mailto:workwebsite2000@gmail.com">Email Us</a>
+       </address>
+     </div>
+     
+   <hr style="border: 1px solid #ACABAB; height:80px; margin: auto;" />
+     <div class="footer_payment"> 
+         <h2 class="nav__title" style="margin-left:20px;">Payment methods</h2>
+         <br>
+         <img class="footer_img" src="images/visa.png"  alt="visa">
+         <img class="footer_img" src="images/mastercard.jpg"  alt="visa">
+      </div>  
+   
+   </div>
+   <hr style="border: 1px solid #7B7B7B; margin: auto;" />
+   <div class="legal">
+       <p>Developer: Mahima Bora</p>
+       
+       <div class="legal__links">
+         <span>Made with <span class="heart">♥</span> remotely from Anywhere</span>
+       </div>
+     </div>
+   </div>
+   
+   
+   
+   </html>   

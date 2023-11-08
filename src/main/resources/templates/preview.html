@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<style>
+      .card-element {
+        text-align: center;
+        height:350px;
+      }
+      
+</style>
+
+   <head>
+   <header class="header"  style="  background-color: white;">
+   
+   <nav class="navigation">
+  <div id="menuToggle">
+  
+    <input type="checkbox" />
+    
+    <span></span>
+    <span></span>
+    <span></span>
+    
+	    <ul id="menu">
+	      <a href="/"><li>Home</li></a>
+	      <a href="/productpage?linkValue=softtoys"><li>Soft toys</li></a>
+	      <a href="/productpage?linkValue=homeFurnishing"><li>Home Furnishing</li></a>
+	      <a href="/productpage?linkValue=decorativeItems" ><li>Decorative Items</li></a>
+	    </ul>
+  </div>
+</nav>
+  <img class="logo" src="images/logo.jpeg" onclick='refreshPage()' alt="Lomaa">
+      
+      <ul class="main-nav">
+      	<a href="/aboutus" class="hover-underline-animation">About Us</a>
+      	<a href="mailto:workwebsite2000@gmail.com" class="hover-underline-animation">Contact</a>
+   		<a href="#"  onclick='openForm()' id="myElement" class="hover-underline-animation" ></a>
+        
+         
+         
+        <div class="dropdown">
+         	<div class="dropbtn" id="name" style="display: none;" ></div>
+            <br><div class="dropdown-content">
+             <center>
+                  <!--          <a href="/cart">Orders</a>  --> 
+                  <br><a href="/updateProfile">Profile</a><br><br>
+                  <a href="/logout"  id="logout" onclick='clearLocalStorage()' style="display: none; color: red" >Logout</a>
+              <br><br>
+               </center>
+            </div>	
+		 </div>
+		 <a href="/cart" class="fa" style="font-size:25px">&#xf07a;</a>
+      </ul>
+   </header>
+   
+
+<body>
+<form action="/addtocart" method="post">
+<div class="itemcontainer">
+			<div class="summary">
+			<img class="s1" th:src="@{'/images/' + ${data.image1}}" />
+		    <img class="s1" th:src="@{'/images/' + ${data.image2}}" />
+		    <img class="s1" th:src="@{'/images/' + ${data.image3}}" />
+		    <img class="s1" th:src="@{'/images/' + ${data.image4}}" />
+			</div>
+			
+		
+		    <div class="navigatebutton">
+		
+		  
+		    <img id="preview-image" class="previewslide" th:src="@{'/images/' + ${data.image1}}" />
+		    <img class="previewslide" th:src="@{'/images/' + ${data.image2}}" />
+		    <img class="previewslide" th:src="@{'/images/' + ${data.image3}}" />
+		    <img class="previewslide" th:src="@{'/images/' + ${data.image4}}" />	
+		    
+		    <div class="navigationbutton">
+		    <div class="prev" onclick="plusSlides(-1)">❮</div>&nbsp;&nbsp;
+  			<div class="next" onclick="plusSlides(1)">❯</div>	  		    
+		    </div>
+		 
+		     
+		 	</div>
+		   
+		
+		
+	
+	
+	<div class="itemcontent">
+		<div class="text">
+		<div style="color:grey">PRODUCT DESCRIPTION <br></div>
+		<hr>
+		Name: <span class="itemtitle" th:text="${data.item_name}"/></span>
+	    <hr>
+	    Price: <span class="itemprice" th:text="${data.item_price}"/></span>
+	    <hr>	    
+	    Color: <span class="itemprice" th:text="${data.item_color}"/></span>
+	    <hr>
+	    Size: <span class="itemprice" th:text="${data.item_size}"/></span>
+	    <hr>
+	    Weight: <span class="itemprice" th:text="${data.item_weight}"/></span>
+	    <hr>
+	    Material: <span class="itemprice" th:text="${data.item_material}"/></span>
+	    <hr>
+	    Code: <span class="itemcode" th:name=code th:text="${data.item_code}"/></span>
+	    <hr>
+	   </div>
+	    <!--  Image: <span th:text="${data.image}"/><br><br>-->
+		
+		<div class="itembuttons"><br>
+			<button class="addbtn" type="submit" value="ADD TO CART"/>ADD TO CART</button>&nbsp;&nbsp;
+			<button class="cartbtn" type="submit" value= "CART"  formaction="/cart">CART</button>
+		</div>
+		
+		<input type="hidden" th:name="code" th:value="${data.item_code}"  />
+	
+	</div>
+</div>
+   
+</form>
+
+
+<script th:inline="javascript">
+const thumbnailImages = document.querySelectorAll('.summary img');
+
+    const previewImage = document.getElementById('preview-image');
+thumbnailImages.forEach((thumbnailImage, index) => {
+  thumbnailImage.addEventListener('click', () => {
+    const src = thumbnailImage.getAttribute('src');
+    console.log(index, src);
+
+previewImage.src = src;   
+
+  });
+});
+
+
+console.log([[${data.item_code}]]);
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("previewslide");
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[slideIndex-1].style.display = "block";
+}
+
+
+
+
+
+
+function refreshPage() {
+	  window.location.href = "http://localhost:8080/";
+	  
+	}
+
+
+
+
+
+
+
+function clearLocalStorage() {
+ 	  localStorage.clear();
+ 	}
+ 	
+ 	
+var name = [[${name}]];
+if(name=="null"){
+	var link = document.getElementById("myElement");
+	link.innerHTML = "Login or new? Sign-up!";
+}
+
+else {
+  	console.log(name); 
+  	var link = document.getElementById("name");
+  	link.innerHTML = name;
+	document.getElementById("myElement").style.display = "none";
+	document.querySelector(".dropbtn").style.display = "block";
+	document.getElementById("name").style.display = "inline";
+	document.getElementById("name").style.fontWeight = "bold";
+	document.getElementById("name").style.textTransform = "capitalize";
+	document.getElementById("logout").style.display = "inline";
+
+}
+
+
+
+</script>
+</body>
+<div class="footer" style="background-color: black;">
+   <div class="footer_items">
+   <div class="footer__nav">
+       <div class="footer__item">
+         <h2 class="nav__title" style="margin-left:0px;">Categories <br></h2>
+   
+         <ul class="nav__ul">
+           <li>
+             <a href="/productpage?linkValue=softtoys">Soft Toys</a>
+           </li>
+   
+           <li>
+            <a href="/productpage?linkValue=homeFurnishing">Home Furnishing</a>
+           </li>
+               
+           <li>
+             <a href="/productpage?linkValue=decorativeItems" >Decorative Items</a>
+           </li>
+         </ul>
+       </div>
+       
+     </div>
+   
+   <hr style="border: 1px solid #ACABAB; height:80px; margin: auto;" />
+     <div class="footer__addr">
+       <h2 style=" margin-left:23px;"class="nav__title">Contact</h2>
+       <address>
+         &#128241; 011-000-000-000<br>
+         &#127757; 5534 Somewhere In. The World 22193-10212 <br>
+    
+         <a class="footer__btn" href="mailto:workwebsite2000@gmail.com">Email Us</a>
+       </address>
+     </div>
+     
+   <hr style="border: 1px solid #ACABAB; height:80px; margin: auto;" />
+     <div class="footer_payment"> 
+         <h2 class="nav__title" style="margin-left:20px;">Payment methods</h2>
+         <br>
+         <img class="footer_img" src="images/visa.png"  alt="visa">
+         <img class="footer_img" src="images/mastercard.jpg"  alt="visa">
+      </div>  
+   
+   </div>
+   <hr style="border: 1px solid #7B7B7B; margin: auto;" />
+   <div class="legal">
+       <p>Developer: Mahima Bora</p>
+       
+       <div class="legal__links">
+         <span>Made with <span class="heart">♥</span> remotely from Anywhere</span>
+       </div>
+     </div>
+   </div>
+   
+   
+   
+   </html>   

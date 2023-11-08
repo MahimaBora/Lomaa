@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="admin.css">
+
+</head>
+<body>
+<br><br>
+<center>HI ADMIN</center>
+<br><br>
+<b>ADD ITEMS</b><br> <br>
+<form action="/admin/submit" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+    <div class="panel">
+    
+    Enter Item Code:
+    <input type=" text" name="item_code" id="item_code"/ required><br><br>
+    Enter Item Name: 
+    <input type=" text" name="item_name" id="item_name"/ required><br><br>
+    Enter Item Price:
+    <input type=" text" name="item_price" id="item_price"  required/><br><br>
+    Enter Item Color:
+    <input type=" text" name="item_color" id="item_color"  required/><br><br>
+    Enter Item Size:
+    <input type=" text" name="item_size" id="item_size"  required/><br><br>
+    Enter Item Weight:
+    <input type=" text" name="item_weight" id="item_weight"  required/><br><br>
+    Enter Item Material:
+    <input type=" text" name="item_material" id="item_material"  required/><br><br>
+    
+    
+    Drop Cover Image:
+    <input type="file" id="img1" name= "image1" accept="image/*" required/><br><br>
+    Drop Second Image:
+    <input type="file" id="img2" name= "image2" accept="image/*" required/><br><br>
+    Drop Third Image:
+    <input type="file" id="img3" name= "image3" accept="image/*" required/><br><br>
+    Drop Fourth Image:
+    <input type="file" id="img4" name= "image4" accept="image/*" required/><br><br>
+    
+    <br><br><br><br>
+
+
+<b>Category</b> <br> <br>
+   <label>
+    <input type="checkbox" name="softtoys" value="softtoys" class="checkbox">
+    SOFT TOY
+  </label>
+  <br> <br>
+  <label>
+    <input type="checkbox" name="homeFurnishing" value="homeFurnishing" class="checkbox">
+    HOME FURNISHNG
+  </label>
+  <br><br>  
+    <label>
+    <input type="checkbox" name="decorativeItems" value="decorativeItems" class="checkbox">
+    DECORATIVE ITEMS
+  </label>
+  
+
+    
+    <center>
+        <input type="submit"/>
+        <div th:text=${message}></div>
+    </center>
+</div>
+</form>
+   
+<script>
+
+function validateForm() {
+	  var checkboxes = document.getElementsByClassName("checkbox");
+	  var count = 0;
+	  
+	  for (var i = 0; i < checkboxes.length; i++) {
+	    if (checkboxes[i].checked) {
+	    	console.log(checkboxes[i]);
+	      count++;
+	    }
+	  }
+	  
+	  if (count != 1) {
+	    alert("Please select one option.");
+	    return false;
+	  }
+	  
+	  return true;
+	}
+	</script>
+
+
+<hr><hr>
+<br><br>
+
+
+<b>DELETE ITEM FROM WEBSITE</b>
+<br><br>
+<form action="/admin/delete" method="post" >
+ Enter Item Code:
+    <input type=" text" name="item_code" id="item_code" required/><br><br>
+<center>
+        <input type="submit"/>
+        <div th:text=${dltmessage}></div>
+    </center>
+
+
+
+</form>
+
+
+<hr><hr>
+
+
+
+   
+</body>
+</html>
